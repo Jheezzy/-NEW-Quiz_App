@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/widgets/questions_screen.dart';
 
-class MainBody extends StatelessWidget {
+import 'start_screen.dart';
+
+class MainBody extends StatefulWidget {
   const MainBody({super.key});
 
   @override
+  State<MainBody> createState() => _MainBodyState();
+}
+
+class _MainBodyState extends State<MainBody> {
+  late Widget screenWidget;
+
+  @override
+  void initState() {
+    super.initState();
+    screenWidget = StartScreen(changeScreen);
+  }
+
+  void changeScreen() {
+    setState(() {
+      screenWidget = const QuestionsScreen();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // var questionsScreen = QuestionsScreen();
+    // late Widget screenWidget;
+
+    // if (screenWidget == screenWidget) {
+    //   screenWidget = screenWidget;
+    // }
     return Scaffold(
       body: Container(
+        width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -17,16 +46,8 @@ class MainBody extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Column(
-          children: [
-            Image.asset('quiz-logo.png'),
-            const Text('Learn Flutter the fun way!'),
-            OutlinedButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.arrow_right_alt),
-                label: const Text('Start Quiz'))
-          ],
-        ),
+        child: screenWidget,
+        // child: screenWidget == screenWidget() ? screenWidget() : questionsScreen,
       ),
     );
   }
